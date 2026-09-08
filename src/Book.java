@@ -14,15 +14,16 @@ public class Book {
     }
 
     public boolean loanBook() {
-        if (isAvailable == true) {
-         isAvailable = false;
-         return true;
-        }else {
+        if (isAvailable) {
+            isAvailable = false;
+            return true;
+        } else {
             return false;
         }
     }
-    public void returnBook(){
-    isAvailable = true;
+
+    public void returnBook() {
+        isAvailable = true;
     }
 
     public String toString() {
