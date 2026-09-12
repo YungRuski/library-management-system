@@ -11,12 +11,16 @@ void main() {
     Member member1 = new Member("Jan", 5932);
     Member member2 = new Member("Amanda", 9582);
 
-    IO.println(book1);
-    boolean loaned = book1.loanBook(member1);
-    IO.println(book1);
+//    IO.println(book1);
+//    boolean loaned = book1.loanBook(member1);
+//    IO.println(book1);
 
-    book1.returnBook();
-    IO.println(book1);
+//    book1.returnBook();
+//    IO.println(book1);
 
+    Loan loan1 = new Loan(book1, member1, LocalDate.of(1998, 12, 22));
+    Loan loan2 = new Loan(book2, member1, LocalDate.now());
+    IO.println(loan1);
+    IO.println(loan2);
 
 }
