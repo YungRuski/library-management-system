@@ -1,22 +1,26 @@
 void main() {
-    Book book1 = new Book("Krig og Fred", "Lev Tolstoj", "9788702294903", 1);
+    Book book1 = new Book("Forbrydelse og straf", "Fjodor Dostojevskij", "9788702294903", 1);
     IO.println(book1);
 
-    Book book2 = new Book("Vagabond", "Tekhiko Inour", "9849864359458", 2);
+    Book book2 = new Book("Vagabond Vol. 1", "Tekhiko Inour", "9849864359458", 2);
     IO.println(book2);
 
-    Book book3 = new Book("One Piece", "Eichiro Oda", "928984953849", 3);
+    Book book3 = new Book("One Piece Vol. 111", "Eichiro Oda", "928984953849", 3);
     IO.println(book3);
 
     Member member1 = new Member("Jan", 5932);
     Member member2 = new Member("Amanda", 9582);
 
-    IO.println(book1);
-    boolean loaned = book1.loanBook(member1);
-    IO.println(book1);
+//    IO.println(book1);
+//    boolean loaned = book1.loanBook(member1);
+//    IO.println(book1);
 
-    book1.returnBook();
-    IO.println(book1);
+//    book1.returnBook();
+//    IO.println(book1);
 
+    Loan loan1 = new Loan(book1, member1, LocalDate.of(1998, 12, 22));
+    Loan loan2 = new Loan(book3, member2, LocalDate.now());
+    IO.println(loan1);
+    IO.println(loan2);
 
 }
