@@ -1,16 +1,9 @@
-public class Member {
-    final String name;
-    final int memberID;
+public record Member(String name, int memberID) {
 
-    Member(String name, int memberID) {
-        this.name = name;
-        this.memberID = memberID;
-    }
-
+    @Override
     public String toString() {
         return String.format("""
                 %s (Lånenummer: %s)
                 """, name, memberID);
     }
-
 }

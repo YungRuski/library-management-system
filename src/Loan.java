@@ -25,12 +25,12 @@ public class Loan {
         return LocalDate.now().isAfter(getDueDate());
     }
     public String toString(){
-        String status = isOverdue() ? "OVERSKREDET!!!" : "nej, tag det roligt";
+        String status = isOverdue() ? "OVERSKREDET!!!" : "Ikke overskredet";
         return String.format("""
                 %s
                 %s
                 Afleveringsfrist: %s
-                Status %s
+                Status: %s
                 """,book, borrowedBy, getDueDate(), status);
     }
 }
