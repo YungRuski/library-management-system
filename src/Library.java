@@ -64,23 +64,23 @@ public class Library {
         return null;
     }
 
-    public boolean loanResource(int membersID, String identifier) {
+    public LoanResult loanResource(int membersID, String identifier) {
         Member member = getMember(membersID);
         if (member == null) {
-            return false;
+            return LoanResult.NOT_MEMBER;
         }
         Resource resource = getResource(identifier);
         if (resource == null) {
-            return false;
+            return LoanResult.NO_RESOURCE;
         }
         for (Loan loan : loans){
             if (loan.getResource().getIdentifier().equals(identifier)){
-                return false;
+                return LoanResult.ALREADY_LOANED;
             }
         }
         Loan loan = new Loan(resource, member, LocalDate.now());
         loans.add(loan);
-        return true;
+        return LoanResult.SUCCESS;
     }
 
     public boolean returnResource(String identifier){

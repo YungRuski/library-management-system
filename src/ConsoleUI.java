@@ -37,12 +37,12 @@ public class ConsoleUI {
     private void borrowResource() {
         int memberId = Integer.parseInt(IO.readln("Indtast venligst dit medlemsnummer: "));
         String identifier = IO.readln("Indtast materialets nummer, som du vil låne: ");
-        boolean resourceLoaned = library.loanResource(memberId, identifier);
-        if (resourceLoaned) {
-            IO.println("-------------");
-            IO.println("Du har lånt: \n" + library.getResource(identifier));
-        } else {
-            IO.println("Det lykkedes ikke at låne materialet.");
+        LoanResult resourceLoaned = library.loanResource(memberId, identifier);
+        switch (resourceLoaned) {
+            case NOT_MEMBER -> IO.println("Du er ikke medlem");
+            case NO_RESOURCE -> IO.println("Den ejer vi ikke i vores system");
+            case ALREADY_LOANED -> IO.println("Den er desværre allerede udlånt");
+            case SUCCESS -> IO.println("Du har lånt: " + library.getResource(identifier));
         }
     }
 
