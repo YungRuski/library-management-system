@@ -25,9 +25,7 @@ public class Loan {
         return LocalDate.now().isAfter(getDueDate());
     }
     public String toString(){
-        //Ternary operator ? = returnere 1 eller 2 værdier hvis en betingelse er sand
-        //Variabel = (betingelse) ? ifTrue : ifFalse;
-        String status = isOverdue() ? "OVERSKREDET!!!" : "Ikke overskredet afleveringsfrist";
+        String status = isOverdue() ? "OVERSKREDET!!!" : "Ikke overskredet";
         return String.format("""
                 %s
                 %s

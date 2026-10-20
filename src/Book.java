@@ -1,26 +1,11 @@
-public class Book {
-    final String title;
-    final String author;
-    final String isbn;
-    final int idNr;
+public record Book(String title, String author, String isbn, int idNr) {
 
-
-    public Book(String title, String author, String isbn, int idNr) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.idNr = idNr;
-
-    }
-
-
+    @Override
     public String toString() {
-
         return String.format("""
-                Titel: %s
-                Forfatter: %s
+                %s; %s
                 ISBN: %s
                 ID nr: %s
-                """, title, author, isbn, idNr);
+                """, author, title, isbn, idNr);
     }
 }
