@@ -13,9 +13,10 @@ public class ConsoleUI {
             showMenu();
             int choice = Integer.parseInt(IO.readln("Vælg et nummer fra menuen: "));
             switch (choice) {
-                case 1 -> borrowBook();
-                case 2 -> returnBook();
+                case 1 -> borrowResource();
+                case 2 -> returnResource();
                 case 3 -> showLoans();
+                case 4 -> printLibrary();
                 case 0 -> running = false;
                 default -> IO.println("Ugyldigt valg. Prøv igen.");
             }
@@ -28,28 +29,29 @@ public class ConsoleUI {
         IO.println("1. Lån");
         IO.println("2. Aflever");
         IO.println("3. Vis alle lån");
+        IO.println("4. Vis materiale");
         IO.println("0. Afslut");
 
     }
 
-    private void borrowBook() {
+    private void borrowResource() {
         int memberId = Integer.parseInt(IO.readln("Indtast venligst dit medlemsnummer: "));
-        int bookId = Integer.parseInt(IO.readln("Indtast bogens ID nummer, som du vil låne: "));
-        boolean bookLoaned = library.loanBook(memberId, bookId);
-        if (bookLoaned) {
-            IO.println("-------------");
-            IO.println("Du har lånt: \n" + library.getBook(bookId));
-        } else {
-            IO.println("Det lykkedes ikke at låne bogen.");
+        String identifier = IO.readln("Indtast materialets nummer, som du vil låne: ");
+        LoanResult resourceLoaned = library.loanResource(memberId, identifier);
+        switch (resourceLoaned) {
+            case NOT_MEMBER -> IO.println("Du er ikke medlem");
+            case NO_RESOURCE -> IO.println("Den ejer vi ikke i vores system");
+            case ALREADY_LOANED -> IO.println("Den er desværre allerede udlånt");
+            case SUCCESS -> IO.println("Du har lånt: " + library.getResource(identifier));
         }
     }
 
-    private void returnBook() {
-        int bookId = Integer.parseInt(IO.readln("Skriv bogens ID nummer, som du vil aflevere: "));
-        boolean bookReturned = library.returnBook(bookId);
-        if (bookReturned) {
+    private void returnResource() {
+        String identifier = IO.readln("Skriv materialets nummer, som du vil aflevere: ");
+        boolean resourceReturned = library.returnResource(identifier);
+        if (resourceReturned) {
             IO.println("-------------");
-            IO.println("Du har afleveret bogen tilbage.");
+            IO.println("Du har afleveret materialet tilbage.");
         } else {
             IO.println("Der skete en fejl");
         }
@@ -68,6 +70,9 @@ public class ConsoleUI {
             }
         }
 
+    }
+    private void printLibrary(){
+        library.printResources();
     }
 
 }
