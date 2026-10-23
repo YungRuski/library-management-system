@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookTest {
     Book book;
     @BeforeEach
+
+    //The arranger
     void setup(){
         book = new Book("9788700631625", "Harry Potter", "J.K. Rowling", 350);
     }
 
     @Test
     void testGetCreator() {
-        //Arrange
-        setup();
         //Act
         String creator = book.getCreator();
         //Assert
@@ -22,8 +22,6 @@ class BookTest {
 
     @Test
     void testGetCreatorIsNotNull() {
-        //Arrange
-        setup();
         //Act
         String creator = book.getCreator();
         //Assert
@@ -32,8 +30,6 @@ class BookTest {
 
     @Test
     void testGetTitle() {
-        //Arrange
-        setup();
         //Act
         String title = book.getTitle();
         //Arrange
@@ -42,8 +38,6 @@ class BookTest {
 
     @Test
     void testGetIdentifier() {
-        //Arrange
-        setup();
         //Act
         String identifier = book.getIdentifier();
         //Arrange
@@ -52,8 +46,6 @@ class BookTest {
 
     @Test
     void testGetPages() {
-        //Arrange
-        setup();
         //Act
         int pages = book.getPages();
         //Assert

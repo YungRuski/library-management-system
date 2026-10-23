@@ -21,8 +21,5 @@ class VideoGameTest {
         assertEquals("PC og Mac", platform);
     }
 
-    @Test
-    void testToString() {
 
-    }
 }

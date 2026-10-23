@@ -18,25 +18,46 @@ class LoanTest {
 
     @Test
     void getResource() {
-        //Arrange
-        setup();
         //Act
-        Resource resource =
+        Resource result = loan.getResource();
+        //Assert
+        assertEquals(resource, result);
     }
 
     @Test
     void getMember() {
+        //Act
+        Member result = loan.getMember();
+        //Assert
+        assertEquals(member, result);
     }
 
     @Test
     void getDueDate() {
+        //Arrange
+        LocalDate expected = LocalDate.of(2026, 10, 15);
+        //Act
+        LocalDate result = loan.getDueDate();
+        //Assert
+        assertEquals(expected, result);
     }
 
     @Test
     void isOverdue() {
+        //Arrange
+        Loan loan = new Loan(resource, member, LocalDate.now().minusDays(20));
+        //Act
+        boolean result = loan.isOverdue();
+        //Assert
+        assertTrue(result);
     }
-
     @Test
-    void testToString() {
+    void isNotOverdue(){
+        //Arrange
+        Loan loan = new Loan(resource, member, LocalDate.now().minusDays(5));
+        //Act
+        boolean result = loan.isOverdue();
+        //Assert
+        assertFalse(result);
     }
 }

@@ -1,14 +1,19 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 class AudioBookTest {
+    AudioBook audioBook;
+
+    @BeforeEach
+    void setup(){
+        audioBook = new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200);
+    }
 
     @Test
     void testGetAudioLength() {
-        //Arrange
-        AudioBook audioBook = new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200);
         //Act
         int audiolength = audioBook.getAudioLength();
         //Arrange
@@ -17,8 +22,6 @@ class AudioBookTest {
 
     @Test
     void testGetCreator() {
-        //Arrange
-        AudioBook audioBook = new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200);
         //Act
         String creator = audioBook.getCreator();
         //Arrange
@@ -26,8 +29,6 @@ class AudioBookTest {
     }
     @Test
     void testGetCreatorIsNotNull() {
-        //Arrange
-        AudioBook audioBook = new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200);
         //Act
         String creator = audioBook.getCreator();
         //Arrange
