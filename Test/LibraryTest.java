@@ -90,7 +90,7 @@ class LibraryTest {
     void testFailedLoanDoesNotAffectLibrary1() {
 
         //Act
-        library.loanResource(9999, "5700000000003");
+        library.loanResource(9999, "9788700631625");
         //Assert
         assertEquals(0, loans.size());
     }
@@ -100,16 +100,16 @@ class LibraryTest {
     void testFailedLoanDoesNotAffectLibrary2() {
 
         //Act
-        library.loanResource(1111, "9999999999999");
+        library.loanResource(5932, "9999999999999");
         //Assert
         assertEquals(0, loans.size());
     }
     @Test
     void testFailedLoanDoesNotAffectLibrary3() {
         //Assign
-        library.loanResource(1111, "5700000000003");
+        library.loanResource(5932, "9788700631625");
         //Act
-        library.loanResource(1111, "5700000000003");
+        library.loanResource(5932, "9788700631625");
         //Assert
         assertEquals(1, loans.size());
     }
@@ -117,7 +117,7 @@ class LibraryTest {
     @Test
     void testFailedReturnDoesNotAffectLibrary1() {
         //Assign
-        library.loanResource(1111, "5700000000003");
+        library.loanResource(5932, "9788700631625");
         //Act
         library.returnResource("9999999999999");
         //Assert
@@ -127,7 +127,7 @@ class LibraryTest {
     void testFailedReturnDoesNotAffectLibrary2() {
 
         //Act
-        library.returnResource("5700000000003");
+        library.returnResource("9788700631625");
         //Assert
         assertEquals(0, loans.size());
     }
