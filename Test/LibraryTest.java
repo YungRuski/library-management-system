@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryTest {
@@ -8,16 +10,20 @@ class LibraryTest {
     Member member;
     Member member2;
     Resource resource;
+    ArrayList<Loan> loans;
 
     @BeforeEach
     void setup() {
         library = new Library();
+        loans = library.getLoans();
         member = new Member("Jan", 5932);
         member2 = new Member("Amanda", 9582);
         resource = new Book("9788700631625", "Harry Potter", "J.K. Rowling", 350);
         library.addMember(member);
         library.addMember(member2);
         library.addResource(resource);
+
+
     }
 
     @Test
@@ -79,6 +85,51 @@ class LibraryTest {
        LoanResult result = library.loanResource(5932, "9788700631625");
         //Assert
         assertEquals(LoanResult.SUCCESS, result);
+    }
+    @Test
+    void testFailedLoanDoesNotAffectLibrary1() {
+
+        //Act
+        library.loanResource(9999, "5700000000003");
+        //Assert
+        assertEquals(0, loans.size());
+    }
+
+
+    @Test
+    void testFailedLoanDoesNotAffectLibrary2() {
+
+        //Act
+        library.loanResource(1111, "9999999999999");
+        //Assert
+        assertEquals(0, loans.size());
+    }
+    @Test
+    void testFailedLoanDoesNotAffectLibrary3() {
+        //Assign
+        library.loanResource(1111, "5700000000003");
+        //Act
+        library.loanResource(1111, "5700000000003");
+        //Assert
+        assertEquals(1, loans.size());
+    }
+
+    @Test
+    void testFailedReturnDoesNotAffectLibrary1() {
+        //Assign
+        library.loanResource(1111, "5700000000003");
+        //Act
+        library.returnResource("9999999999999");
+        //Assert
+        assertEquals(1, loans.size());
+    }
+    @Test
+    void testFailedReturnDoesNotAffectLibrary2() {
+
+        //Act
+        library.returnResource("5700000000003");
+        //Assert
+        assertEquals(0, loans.size());
     }
 
 
