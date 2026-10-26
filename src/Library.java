@@ -5,9 +5,10 @@ public class Library {
     private ArrayList<Resource> resources = new ArrayList<>();
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Loan> loans = new ArrayList<>();
+    private LoanPolicy policy;
 
-    public Library() {
-
+    public Library(LoanPolicy policy) {
+        this.policy = policy;
     }
 
     public void addResource(Resource resource) {
@@ -73,29 +74,37 @@ public class Library {
         if (resource == null) {
             return LoanResult.NO_RESOURCE;
         }
-        for (Loan loan : loans){
-            if (loan.getResource().getIdentifier().equals(identifier)){
+        for (Loan loan : loans) {
+            if (loan.getResource().getIdentifier().equals(identifier)) {
                 return LoanResult.ALREADY_LOANED;
             }
         }
-        Loan loan = new Loan(resource, member, LocalDate.now());
-        loans.add(loan);
-        return LoanResult.SUCCESS;
+
+        if (policy.canLoan(member, resource, loans)) {
+            LocalDate borrowedDate = LocalDate.now();
+            LocalDate dueDate = policy.calculateDueDate(borrowedDate);
+            Loan loan = new Loan(resource, member, borrowedDate, dueDate);
+            loans.add(loan);
+            return LoanResult.SUCCESS;
+        }
+        return LoanResult.POLICY_NOT_ALLOWED;
     }
 
-    public boolean returnResource(String identifier){
-        for (Loan loan : loans){
-            if(loan.getResource().getIdentifier().equals(identifier)){
+
+    public boolean returnResource(String identifier) {
+        for (Loan loan : loans) {
+            if (loan.getResource().getIdentifier().equals(identifier)) {
                 loans.remove(loan);
                 return true;
             }
         }
         return false;
     }
-    public ArrayList<Loan> findLoansByMemberId(int memberId){
-    ArrayList<Loan> memberloans = new ArrayList<>();
-        for (Loan loan : loans){
-            if(loan.getMember().memberID() == memberId){
+
+    public ArrayList<Loan> findLoansByMemberId(int memberId) {
+        ArrayList<Loan> memberloans = new ArrayList<>();
+        for (Loan loan : loans) {
+            if (loan.getMember().memberID() == memberId) {
                 memberloans.add(loan);
             }
         }

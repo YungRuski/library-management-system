@@ -1,6 +1,7 @@
 void main() {
 
-    Library library = new Library();
+    LoanPolicy policy = new StandardLoanPolicy();
+    Library library = new Library(policy);
     ConsoleUI consoleUI = new ConsoleUI(library);
 
     // Bøger
