@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConsoleUI {
     private Library library;
@@ -43,6 +44,7 @@ public class ConsoleUI {
             case NO_RESOURCE -> IO.println("Den ejer vi ikke i vores system");
             case ALREADY_LOANED -> IO.println("Den er desværre allerede udlånt");
             case SUCCESS -> IO.println("Du har lånt: " + library.getResource(identifier));
+            case POLICY_NOT_ALLOWED -> IO.println("Det overholder ikke vores lånepolitik");
         }
     }
 
@@ -59,7 +61,7 @@ public class ConsoleUI {
 
     private void showLoans() {
         int memberId = Integer.parseInt(IO.readln("Indtast dit medlemsnummer, og se dine lån: "));
-        ArrayList<Loan> memberLoans = library.findLoansByMemberId(memberId);
+        List<Loan> memberLoans = library.findLoansByMemberId(memberId);
         if (memberLoans.isEmpty()){
             IO.println("-------------");
             IO.println("Du har ingen lån");

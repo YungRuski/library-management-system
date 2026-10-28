@@ -4,11 +4,13 @@ public class Loan {
     private final Resource resource;
     private final Member borrowedBy;
     private final LocalDate borrowedDate;
+    private final LocalDate dueDate;
 
-    public Loan(Resource resource, Member member, LocalDate borrowedDate) {
+    public Loan(Resource resource, Member member, LocalDate borrowedDate, LocalDate dueDate) {
         this.resource = resource;
         this.borrowedBy = member;
         this.borrowedDate = borrowedDate;
+        this.dueDate = dueDate;
     }
 
     public Resource getResource() {
@@ -18,20 +20,27 @@ public class Loan {
     public Member getMember() {
         return borrowedBy;
     }
-    public LocalDate getDueDate(){
-        return borrowedDate.plusDays(14);
+
+    public LocalDate getBorrowedDate() {
+        return borrowedDate;
     }
-    public boolean isOverdue(){
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public boolean isOverdue() {
         return LocalDate.now().isAfter(getDueDate());
     }
-    public String toString(){
+
+    public String toString() {
         String status = isOverdue() ? "OVERSKREDET!!!" : "Ikke overskredet";
         return String.format("""
                 %s
                 %s
                 Afleveringsfrist: %s
                 Status: %s
-                """,resource, borrowedBy, getDueDate(), status);
+                """, resource, borrowedBy, getDueDate(), status);
     }
 }
 
