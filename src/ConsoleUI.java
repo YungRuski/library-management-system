@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConsoleUI {
     private Library library;
@@ -60,7 +61,7 @@ public class ConsoleUI {
 
     private void showLoans() {
         int memberId = Integer.parseInt(IO.readln("Indtast dit medlemsnummer, og se dine lån: "));
-        ArrayList<Loan> memberLoans = library.findLoansByMemberId(memberId);
+        List<Loan> memberLoans = library.findLoansByMemberId(memberId);
         if (memberLoans.isEmpty()){
             IO.println("-------------");
             IO.println("Du har ingen lån");
