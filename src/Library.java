@@ -82,7 +82,7 @@ public class Library {
 
         if (policy.canLoan(member, resource, loans)) {
             LocalDate borrowedDate = LocalDate.now();
-            LocalDate dueDate = policy.calculateDueDate(borrowedDate);
+            LocalDate dueDate = policy.calculateDueDate(borrowedDate, resource);
             Loan loan = new Loan(resource, member, borrowedDate, dueDate);
             loans.add(loan);
             return LoanResult.SUCCESS;

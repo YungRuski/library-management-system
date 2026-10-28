@@ -43,6 +43,7 @@ public class ConsoleUI {
             case NO_RESOURCE -> IO.println("Den ejer vi ikke i vores system");
             case ALREADY_LOANED -> IO.println("Den er desværre allerede udlånt");
             case SUCCESS -> IO.println("Du har lånt: " + library.getResource(identifier));
+            case POLICY_NOT_ALLOWED -> IO.println("Det overholder ikke vores lånepolitik");
         }
     }
 

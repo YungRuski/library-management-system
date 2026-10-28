@@ -1,6 +1,6 @@
 void main() {
 
-    LoanPolicy policy = new StandardLoanPolicy();
+    LoanPolicy policy = new AalborgLoanPolicy();
     Library library = new Library(policy);
     ConsoleUI consoleUI = new ConsoleUI(library);
 

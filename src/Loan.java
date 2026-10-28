@@ -20,20 +20,27 @@ public class Loan {
     public Member getMember() {
         return borrowedBy;
     }
-    public LocalDate getDueDate(){
+
+    public LocalDate getBorrowedDate() {
+        return borrowedDate;
+    }
+
+    public LocalDate getDueDate() {
         return dueDate;
     }
-    public boolean isOverdue(){
+
+    public boolean isOverdue() {
         return LocalDate.now().isAfter(getDueDate());
     }
-    public String toString(){
+
+    public String toString() {
         String status = isOverdue() ? "OVERSKREDET!!!" : "Ikke overskredet";
         return String.format("""
                 %s
                 %s
                 Afleveringsfrist: %s
                 Status: %s
-                """,resource, borrowedBy, getDueDate(), status);
+                """, resource, borrowedBy, getDueDate(), status);
     }
 }
 

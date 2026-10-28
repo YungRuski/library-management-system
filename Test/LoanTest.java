@@ -12,7 +12,7 @@ class LoanTest {
     void setup() {
         member = new Member("Jan", 5932);
         resource = new Book("9788700631625", "Harry Potter", "J.K. Rowling", 350);
-        loan = new Loan(resource, member, LocalDate.of(2026, 10, 1));
+        loan = new Loan(resource, member, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 15));
     }
 
 
@@ -45,7 +45,7 @@ class LoanTest {
     @Test
     void isOverdue() {
         //Arrange
-        Loan loan = new Loan(resource, member, LocalDate.now().minusDays(20));
+        Loan loan = new Loan(resource, member, LocalDate.now().minusDays(20), LocalDate.now().minusDays(5));
         //Act
         boolean result = loan.isOverdue();
         //Assert
@@ -54,7 +54,7 @@ class LoanTest {
     @Test
     void isNotOverdue(){
         //Arrange
-        Loan loan = new Loan(resource, member, LocalDate.now().minusDays(5));
+        Loan loan = new Loan(resource, member, LocalDate.now().minusDays(20), LocalDate.now().plusDays(5));
         //Act
         boolean result = loan.isOverdue();
         //Assert
