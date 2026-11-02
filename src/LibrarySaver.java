@@ -28,4 +28,29 @@ public class LibrarySaver {
             }
         }
     }
+    public void saveMovies(List<Movie> movies) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (Movie movie : movies) {
+                writer.write(mapper.toCsv(movie));
+                writer.write("\n");
+            }
+        }
+    }
+    public void saveAudioBooks(List<AudioBook> audioBooks) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (AudioBook audioBook : audioBooks) {
+                writer.write(mapper.toCsv(audioBook));
+                writer.write("\n");
+            }
+        }
+    }
+
+    public void saveVideoGames (List<VideoGame> videoGames) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (VideoGame videoGame : videoGames) {
+                writer.write(mapper.toCsv(videoGame));
+                writer.write("\n");
+            }
+        }
+    }
 }

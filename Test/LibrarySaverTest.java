@@ -49,4 +49,60 @@ class LibrarySaverTest {
         var actual = Files.readString(Path.of("test-books.csv"));
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testSaveMovies() throws IOException {
+        //Arrange
+        var movies = List.of(
+                new Movie("5798000794085", "Goodfellas", "Warner Brothers", "Martin Scorsese", 81),
+                new Movie("5700000000002", "Interstellar", "Paramount Pictures", "Christopher Nolan", 169));
+        LibraryMapper mapper = new LibraryMapper();
+        var librarySaver = new LibrarySaver(Path.of("test-movies.csv"), mapper);
+        //Act
+        librarySaver.saveMovies(movies);
+        //Assert
+        var expected = """
+                Goodfellas,Warner Brothers,5798000794085,Martin Scorsese,81
+                Interstellar,Paramount Pictures,5700000000002,Christopher Nolan,169
+                """;
+        var actual = Files.readString(Path.of("test-movies.csv"));
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testSaveAudioBooks() throws IOException {
+        //Arrange
+        var audioBooks = List.of(
+                new AudioBook("9788700631626", "Harry Potter", "J.K. Rowling", 540),
+                new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200));
+        LibraryMapper mapper = new LibraryMapper();
+        var librarySaver = new LibrarySaver(Path.of("test-audiobooks.csv"), mapper);
+        //Act
+        librarySaver.saveAudioBooks(audioBooks);
+        //Assert
+        var expected = """
+                J.K. Rowling,Harry Potter,9788700631626,540
+                Tekhiko Inour,Vagabond Vol. 1,9849864359458,200
+                """;
+        var actual = Files.readString(Path.of("test-audiobooks.csv"));
+        assertEquals(expected, actual);
+    }
+    @Test
+    void testSaveVideoGames() throws IOException {
+        //Arrange
+        var videoGames = List.of(
+                new VideoGame("5700000000003", "Minecraft (Java)", "Mojang", "PC og Mac"),
+                new VideoGame("5700000000004", "The Legend of Zelda: Breath of the Wild", "Nintendo", "Nintendo Switch"));
+        LibraryMapper mapper = new LibraryMapper();
+        var librarySaver = new LibrarySaver(Path.of("test-videogames.csv"), mapper);
+        //Act
+        librarySaver.saveVideoGames(videoGames);
+        //Assert
+        var expected = """
+                Minecraft (Java),PC og Mac,Mojang,5700000000003
+                The Legend of Zelda: Breath of the Wild,Nintendo Switch,Nintendo,5700000000004
+                """;
+        var actual = Files.readString(Path.of("test-videogames.csv"));
+        assertEquals(expected, actual);
+    }
 }
