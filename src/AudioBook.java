@@ -13,7 +13,7 @@ public class AudioBook extends Resource {
     @Override
     public String toString(){
         return String.format("""
-                %s; %s
+                Lydbog: %s; %s
                 ISBN: %s
                 Varighed: %d minutter
                 """,getCreator(), getTitle(), getIdentifier(), getAudioLength());

@@ -38,9 +38,9 @@ public class Loan {
         return String.format("""
                 %s
                 %s
-                Afleveringsfrist: %s
+                Lånt: %s (afleveringsfrist: %s)
                 Status: %s
-                """, resource, borrowedBy, getDueDate(), status);
+                """, resource, borrowedBy, borrowedDate, getDueDate(), status);
     }
 }
 

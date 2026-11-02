@@ -11,7 +11,7 @@ public class VideoGame extends Resource {
     @Override
     public String toString(){
         return String.format("""
-                Titel: %s (%s)
+                Videospil titel: %s (%s)
                 Spilproducent: %s
                 EAN: %s
                 """,getTitle(), getPlatform(), getCreator(), getIdentifier());

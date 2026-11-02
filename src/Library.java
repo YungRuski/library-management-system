@@ -111,5 +111,8 @@ public class Library {
         }
         return memberloans;
     }
+    public void addLoan(Loan loan) {
+        loans.add(loan);
+    }
 }
 

@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,9 +18,9 @@ class LibrarySaverTest {
                 new Member("Amanda", 9823),
                 new Member("Michael", 5613));
         LibraryMapper mapper = new LibraryMapper();
-        var librarySaver = new LibrarySaver(Path.of("test-members.csv"), mapper);
+        var librarySaver = new LibrarySaver(mapper);
         //Act
-        librarySaver.saveMembers(members);
+        librarySaver.saveMembers(members, Path.of("test-members.csv"));
         //Assert
         var expected = """
                 Jan,5932
@@ -38,9 +39,9 @@ class LibrarySaverTest {
                 new Book("9788700631625", "Harry Potter", "J.K. Rowling", 350),
                 new Book("9780451524935", "1984", "George Orwell", 328));
         LibraryMapper mapper = new LibraryMapper();
-        var librarySaver = new LibrarySaver(Path.of("test-books.csv"), mapper);
+        var librarySaver = new LibrarySaver(mapper);
         //Act
-        librarySaver.saveBooks(books);
+        librarySaver.saveBooks(books, Path.of("test-books.csv"));
         //Assert
         var expected = """
                 J.K. Rowling,Harry Potter,9788700631625,350
@@ -57,9 +58,9 @@ class LibrarySaverTest {
                 new Movie("5798000794085", "Goodfellas", "Warner Brothers", "Martin Scorsese", 81),
                 new Movie("5700000000002", "Interstellar", "Paramount Pictures", "Christopher Nolan", 169));
         LibraryMapper mapper = new LibraryMapper();
-        var librarySaver = new LibrarySaver(Path.of("test-movies.csv"), mapper);
+        var librarySaver = new LibrarySaver(mapper);
         //Act
-        librarySaver.saveMovies(movies);
+        librarySaver.saveMovies(movies, Path.of("test-movies.csv"));
         //Assert
         var expected = """
                 Goodfellas,Warner Brothers,5798000794085,Martin Scorsese,81
@@ -76,9 +77,9 @@ class LibrarySaverTest {
                 new AudioBook("9788700631626", "Harry Potter", "J.K. Rowling", 540),
                 new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200));
         LibraryMapper mapper = new LibraryMapper();
-        var librarySaver = new LibrarySaver(Path.of("test-audiobooks.csv"), mapper);
+        var librarySaver = new LibrarySaver(mapper);
         //Act
-        librarySaver.saveAudioBooks(audioBooks);
+        librarySaver.saveAudioBooks(audioBooks, Path.of("test-audiobooks.csv"));
         //Assert
         var expected = """
                 J.K. Rowling,Harry Potter,9788700631626,540
@@ -87,6 +88,7 @@ class LibrarySaverTest {
         var actual = Files.readString(Path.of("test-audiobooks.csv"));
         assertEquals(expected, actual);
     }
+
     @Test
     void testSaveVideoGames() throws IOException {
         //Arrange
@@ -94,15 +96,33 @@ class LibrarySaverTest {
                 new VideoGame("5700000000003", "Minecraft (Java)", "Mojang", "PC og Mac"),
                 new VideoGame("5700000000004", "The Legend of Zelda: Breath of the Wild", "Nintendo", "Nintendo Switch"));
         LibraryMapper mapper = new LibraryMapper();
-        var librarySaver = new LibrarySaver(Path.of("test-videogames.csv"), mapper);
+        var librarySaver = new LibrarySaver(mapper);
         //Act
-        librarySaver.saveVideoGames(videoGames);
+        librarySaver.saveVideoGames(videoGames, Path.of("test-videogames.csv"));
         //Assert
         var expected = """
                 Minecraft (Java),PC og Mac,Mojang,5700000000003
                 The Legend of Zelda: Breath of the Wild,Nintendo Switch,Nintendo,5700000000004
                 """;
         var actual = Files.readString(Path.of("test-videogames.csv"));
+        assertEquals(expected, actual);
+    }
+    @Test
+    void testSaveLoans() throws IOException {
+        //Arrange
+        Member member = new Member("Jan", 5932);
+        Book book = new Book("9788700631625", "Harry Potter", "J.K. Rowling", 350);
+        var loans = List.of(
+                new Loan(book, member, LocalDate.of(2026,10,1), LocalDate.of(2026,10,15)));
+        LibraryMapper mapper = new LibraryMapper();
+        var librarySaver = new LibrarySaver(mapper);
+        //Act
+        librarySaver.saveLoans(loans, Path.of("test-loans.csv"));
+        //Assert
+        var expected = """
+                9788700631625,5932,2026-10-01,2026-10-15
+                """;
+        var actual = Files.readString(Path.of("test-loans.csv"));
         assertEquals(expected, actual);
     }
 }
