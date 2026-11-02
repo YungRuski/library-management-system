@@ -6,4 +6,10 @@ public record Member(String name, int memberID) {
                 %s (Lånenummer: %s)
                 """, name, memberID);
     }
+    public String getName() {
+        return name;
+    }
+    public int getMemberID() {
+        return memberID;
+    }
 }
