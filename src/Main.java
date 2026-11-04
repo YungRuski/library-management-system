@@ -1,79 +1,54 @@
-void main() {
+void main(String[] args) {
+    String libraryPath = args[0];
 
-    LoanPolicy policy = new AalborgLoanPolicy();
-    Library library = new Library(policy);
-    ConsoleUI consoleUI = new ConsoleUI(library);
+    LoanPolicy aalborgLoanPolicy = new AalborgLoanPolicy();
+    LoanPolicy bornholmLoanPolicy = new BornholmLoanPolicy();
+    LoanPolicy standardLoanPolicy = new StandardLoanPolicy();
+    LibraryMapper mapper = new LibraryMapper();
+    LibraryLoader loader = new LibraryLoader(mapper);
+    LibrarySaver saver = new LibrarySaver(mapper);
+    Library library = new Library(bornholmLoanPolicy);
 
-    // Bøger
-    library.addResource(new Book("9788700631625", "Harry Potter", "J.K. Rowling", 350));
 
-    library.addResource(new Book("9780451524935", "1984", "George Orwell", 328));
+    Path memberPath = Path.of(libraryPath, "members.csv");
+    Path bookPath = Path.of(libraryPath, "books.csv");
+    Path moviePath = Path.of(libraryPath, "movies.csv");
+    Path audiobookPath = Path.of(libraryPath, "audiobooks.csv");
+    Path videoGamesPath = Path.of(libraryPath, "videogames.csv");
+    Path loansPath = Path.of(libraryPath, "loans.csv");
 
-// Film
-    library.addResource(new Movie("5798000794085", "Goodfellas", "Warner Brothers", "Martin Scorsese", 81));
 
-    library.addResource(new Movie("5700000000002", "Interstellar", "Paramount Pictures", "Christopher Nolan", 169));
+    try {
+        List<Member> loadedMembers = loader.loadMembers(memberPath);
+        for (Member member : loadedMembers) {
+            library.addMember(member);
+        }
+        List<Book> loadedBooks = loader.loadBooks(bookPath);
+        for (Book book : loadedBooks) {
+            library.addResource(book);
+        }
+        List<Movie> loadedMovies = loader.loadMovies(moviePath);
+        for (Movie movie : loadedMovies) {
+            library.addResource(movie);
+        }
+        List<AudioBook> audioBooks = loader.loadAudioBooks(audiobookPath);
+        for (AudioBook audioBook : audioBooks) {
+            library.addResource(audioBook);
+        }
+        List<VideoGame> loadedVideoGames = loader.loadVideoGames(videoGamesPath);
+        for (VideoGame videoGame : loadedVideoGames) {
+            library.addResource(videoGame);
+        }
+        List<Loan> loans = loader.loadLoans(loansPath, library);
+        for (Loan loan : loans) {
+            library.addLoan(loan);
+        }
 
-// Computerspil
-    library.addResource(new VideoGame("5700000000003", "Minecraft (Java)", "Mojang", "PC og Mac"));
+    } catch (IOException e) {
+        IO.println("Der er sket en fejl: " + e.getLocalizedMessage());
+    }
 
-    library.addResource(new VideoGame("5700000000004", "The Legend of Zelda: Breath of the Wild", "Nintendo", "Nintendo Switch"));
 
-// Lydbøger
-    library.addResource(new AudioBook("9788700631626", "Harry Potter", "J.K. Rowling", 540));
-
-    library.addResource(new AudioBook("9849864359458", "Vagabond Vol. 1", "Tekhiko Inour", 200));
-
-    Member member1 = new Member("Jan", 5932);
-    Member member2 = new Member("Amanda", 9582);
-    Member member3 = new Member("Michael", 8312);
-
-    library.addMember(member1);
-    library.addMember(member2);
-    library.addMember(member3);
-
+    ConsoleUI consoleUI = new ConsoleUI(library, saver, loansPath);
     consoleUI.run();
-
-
 }
-//    ArrayList<Book> books = new ArrayList<>();
-//    books.add(new Book("Krig og Fred", "Lev Tolstoj", "9788702294903", 1));
-//    books.add(new Book("Vagabond", "Tekhiko Inour", "9849864359458", 2));
-//
-//    boolean isBookFound = books.contains(new Book("Krig og Fred", "Lev Tolstoj", "9788702294903", 1));
-//    IO.println(isBookFound);
-
-/*
-    library.loanBook(1, 5932);
-    library.loanBook(2, 5932);
-    ArrayList<Loan> loans = library.findLoansByMemberId(5932);
-    IO.println(loans);
-
-    library.loanBook(3, 9582);
-    loans = library.findLoansByMemberId(9582);
-    IO.println(loans);
-
-
-    //Nu returnere jeg en bog.
-    IO.println(library.returnBook(1));
-    loans = library.getLoans();
-    IO.println(library.returnBook(1));
-
-//    Book foundBook = library.getBook(1);
-//    IO.println(foundBook);
-//
-//    Member foundMember = library.getMember(5932);
-//    IO.println(foundMember);
-
-
-//library.printBooks();
-//library.printMembers();
-
-    //bruger equals metoden til at tjekke, bruger min egen equals metode
-    //IO.println(book1.equals(book4));
-
-
-    //  Loan loan1 = new Loan(book1, member1, LocalDate.of(1998, 12, 22));
-    //  Loan loan2 = new Loan(book2, member1, LocalDate.now());
-
- */

@@ -13,7 +13,7 @@ public class Book extends Resource {
     @Override
     public String toString() {
         return String.format("""
-                %s; %s
+                Bog: %s; %s
                 ISBN: %s
                 Pages: %s
                 """, getCreator(), getTitle(), getIdentifier(), getPages());

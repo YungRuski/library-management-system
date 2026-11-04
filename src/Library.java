@@ -108,8 +108,31 @@ public class Library {
             if (loan.getMember().memberID() == memberId) {
                 memberloans.add(loan);
             }
+
         }
         return memberloans;
+    }
+
+    public void addLoan(Loan loan) {
+        loans.add(loan);
+    }
+
+    public List<Resource> getResourcesSortedByCreator() {
+        List<Resource> sortedResources = new ArrayList<>(resources);
+        sortedResources.sort(new ResourceCreatorComparator());
+        return sortedResources;
+    }
+
+    public List<Resource> getResourcesSortedByIdentifier() {
+        List<Resource> sortedResources = new ArrayList<>(resources);
+        sortedResources.sort(null);
+        return sortedResources;
+    }
+
+    public List<Resource> getResourcesSortedByTitle() {
+        List<Resource> sortedResource = new ArrayList<>(resources);
+        sortedResource.sort(new ResourceTitleComparator());
+        return sortedResource;
     }
 }
 
