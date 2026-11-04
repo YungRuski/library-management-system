@@ -10,6 +10,7 @@ public class LibrarySaver {
     public LibrarySaver(LibraryMapper mapper) {
         this.mapper = mapper;
     }
+
     public void saveMembers(List<Member> members, Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Member member : members) {
@@ -18,6 +19,7 @@ public class LibrarySaver {
             }
         }
     }
+
     public void saveBooks(List<Book> books, Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Book book : books) {
@@ -26,6 +28,7 @@ public class LibrarySaver {
             }
         }
     }
+
     public void saveMovies(List<Movie> movies, Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Movie movie : movies) {
@@ -34,6 +37,7 @@ public class LibrarySaver {
             }
         }
     }
+
     public void saveAudioBooks(List<AudioBook> audioBooks, Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (AudioBook audioBook : audioBooks) {
@@ -43,7 +47,7 @@ public class LibrarySaver {
         }
     }
 
-    public void saveVideoGames (List<VideoGame> videoGames, Path path) throws IOException {
+    public void saveVideoGames(List<VideoGame> videoGames, Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (VideoGame videoGame : videoGames) {
                 writer.write(mapper.toCsv(videoGame));
@@ -51,7 +55,8 @@ public class LibrarySaver {
             }
         }
     }
-    public void saveLoans (List<Loan> loans, Path path) throws IOException {
+
+    public void saveLoans(List<Loan> loans, Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Loan loan : loans) {
                 writer.write(mapper.toCsv(loan));
